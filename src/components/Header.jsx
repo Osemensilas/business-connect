@@ -12,7 +12,7 @@ const Header = () => {
         { title: 'Home', href: '/' },
         { title: 'Marketplace', href: '/marketplace' },
         { title: 'About Us', href: '/about-us' },
-        { title: 'Contact', href: '/contact-us' }
+        { title: 'Contact', href: '/contact-us' },
     ];
 
     const signinClicked = () => {

@@ -11,12 +11,15 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 import Header from '../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [user, setUser] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
+      console.log("Hello");
       async function checkAdmin() {
         try{
           let url = "http://localhost/backends/market/get_users.php";
@@ -27,14 +30,18 @@ const Dashboard = () => {
               },withCredentials: true
           })
 
-          console.log(response.data)
+          if (response.data.success){
+            console.log(response.data.success);
+          }else{
+            //navigate('/');
+          }
         }catch(err){
           console.log("Error retrieving users: ", err)
         }
       }
       checkAdmin()
     }
-  }, [user]);
+  }, [user, navigate]);
 
   useEffect(() => {
     async function getSession() {
@@ -47,8 +54,6 @@ const Dashboard = () => {
           },
           withCredentials: true
         });
-
-        console.log(response.data);
 
         if (response.data !== '') {
           setUser(response.data);
