@@ -45,6 +45,8 @@ const AuthInterface = () => {
 
       const res = response.data;
 
+      console.log(res);
+
       if (!isLogin) {
         if (res?.message?.email === 'Email already exists') {
           setErrors({ email: 'Email already exists' });
