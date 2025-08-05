@@ -22,7 +22,7 @@ const Dashboard = () => {
       console.log("Hello");
       async function checkAdmin() {
         try{
-          let url = "http://localhost/backends/market/get_users.php";
+          let url = "https://business.osemen.com.ng/get_users.php";
 
           const response = await axios.post(url, {action: user}, {
               headers: {
@@ -46,7 +46,7 @@ const Dashboard = () => {
   useEffect(() => {
     async function getSession() {
       try {
-        let url = "http://localhost/backends/market/user_session.php";
+        let url = "https://business.osemen.com.ng/user_session.php";
 
         const response = await axios.get(url, {
           headers: {

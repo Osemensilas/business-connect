@@ -6,6 +6,7 @@ import axios from "axios";
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [userPresent, setUserPresent] = useState(false);
+    const [user, setUser] = useState('user');
     const navigate = useNavigate();
 
     const menuItems = [
@@ -27,7 +28,7 @@ const Header = () => {
 
     const logoutClicked = async () => {
         try{
-            let url = "http://localhost/backends/market/logout.php";
+            let url = "https://business.osemen.com.ng/logout.php";
 
             const response = await axios.get(url, {
                 headers: {
@@ -47,16 +48,24 @@ const Header = () => {
 
     async function getSession() {
         try{
-            let url = "http://localhost/backends/market/user_session.php";
+            let url = "https://business.osemen.com.ng//user_session.php";
 
             const response = await axios.get(url, {
                 headers: {
                     "Content-Type" : "application/json",
                 },withCredentials: true
             })
+
+            console.log(response.data);
         
-            if (response.data !== ''){
+            if (response.data.session !== ''){
                 setUserPresent(true);
+
+                if (response.data.role === 'admin'){
+                    setUser('admin');
+                }else{
+                    setUser('user');
+                }
             }else{
                 setUserPresent(false);
             }
@@ -86,6 +95,9 @@ const Header = () => {
                     {item.title}
                     </Link>
                 ))}
+                <Link to={"/admin-panel"} className={`block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors
+                    ${user === 'admin' ? "" : "hidden"}
+                    `}>Admin Panel</Link>
                 <button onClick={signinClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
                     ${userPresent ? "hidden" : ""}
                     `}>
@@ -115,14 +127,17 @@ const Header = () => {
             <div className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {menuItems.map((item) => (
-                    <a
+                    <Link
                     key={item.title}
-                    href={item.href}
+                    to={item.href}
                     className="block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors"
                     >
                     {item.title}
-                    </a>
+                    </Link>
                 ))}
+                <Link to={"/admin-panel"} className={`block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors
+                    ${user === 'admin' ? "" : "hidden"}
+                    `}>Admin Panel</Link>
                 <button onClick={signinClicked} className={`w-full mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
                     ${userPresent ? "hidden" : ""}
                 `}>

@@ -41,7 +41,7 @@ const Contact = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost/backends/market/contact.php',
+        'https://business.osemen.com.ng/contact.php',
         formData,
         {
           headers: { 'Content-Type': 'application/json' },

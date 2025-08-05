@@ -33,8 +33,8 @@ const AuthInterface = () => {
 
     try {
       const url = isLogin
-        ? "http://localhost/backends/market/login.php"
-        : "http://localhost/backends/market/register.php";
+        ? "https://business.osemen.com.ng/login.php"
+        : "https://business.osemen.com.ng/register.php";
 
       const response = await axios.post(url, formData, {
         headers: {
