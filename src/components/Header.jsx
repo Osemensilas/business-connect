@@ -36,6 +36,8 @@ const Header = () => {
                 },withCredentials: true
             })
 
+            console.log(response.data);
+
             if (response.data.message === 'logged out'){
                 setUserPresent(false);
             }else{
