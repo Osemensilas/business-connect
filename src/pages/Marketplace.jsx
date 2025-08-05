@@ -16,7 +16,7 @@ const Marketplace = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost/backends/market/get_products.php')
+    axios.get('https://business.osemen.com.ng/get_products.php')
       .then((res) => {
         if (res.data.success) {
           setProducts(res.data.products);

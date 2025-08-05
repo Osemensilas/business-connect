@@ -91,7 +91,7 @@ const ProductUpload = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost/backends/market/upload_product.php', submission);
+      const res = await axios.post('https://business.osemen.com.ng/upload_product.php', submission);
       setLoading(false);
       console.log(res.data);
       if (res.data.success) {

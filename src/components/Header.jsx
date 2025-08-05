@@ -50,7 +50,7 @@ const Header = () => {
 
     async function getSession() {
         try{
-            let url = "https://business.osemen.com.ng//user_session.php";
+            let url = "https://business.osemen.com.ng/user_session.php";
 
             const response = await axios.get(url, {
                 headers: {

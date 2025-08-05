@@ -14,7 +14,7 @@ const ProductPage = () => {
   useEffect(() => {
     if (!productId) return;
 
-    axios.get(`http://localhost/backends/market/get_single_product.php?id=${productId}`)
+    axios.get(`https://business.osemen.com.ng/get_single_product.php?id=${productId}`)
       .then(res => {
         if (res.data.success) {
           setProduct(res.data.product);
@@ -36,7 +36,7 @@ const ProductPage = () => {
         <div className="bg-white rounded-lg shadow-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <img
-              src={`http://localhost/backends/market/${product.images?.[0]}`}
+              src={`https://business.osemen.com.ng/${product.images?.[0]}`}
               alt={product.title}
               className="w-full h-auto rounded"
             />
