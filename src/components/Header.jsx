@@ -6,7 +6,7 @@ import axios from "axios";
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [userPresent, setUserPresent] = useState(false);
-    const [user, setUser] = useState('user');
+    const [user, setUser] = useState('');
     const navigate = useNavigate();
 
     const menuItems = [
@@ -51,7 +51,7 @@ const Header = () => {
         }
 
         getSession()
-    },[userPresent, user]);
+    },[]);
 
     const logoutClicked = async () => {
         console.log("Logout");
@@ -66,6 +66,7 @@ const Header = () => {
 
             if (response.data.message === 'logged out'){
                 setUserPresent(false);
+                setUser('');
             }else{
                 setUserPresent(true);
             }
@@ -99,12 +100,12 @@ const Header = () => {
                     ${user === 'admin' ? "" : "hidden"}
                     `}>Admin Panel</Link>
                 <button onClick={signinClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "" : "hidden"}
+                    ${userPresent ? "hidden" : ""}
                     `}>
                     Sign In
                 </button>
                 <button onClick={logoutClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "hidden" : ""}
+                    ${userPresent ? "" : "hidden"}
                     `}>
                     Logout
                 </button>
