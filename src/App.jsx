@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 // Import your pages
 import Home from './pages/Homepage';
@@ -14,20 +14,20 @@ import ProductPage from './pages/ProductPage';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/sign-in" element={<AuthInterface />} />
-        <Route path="/entrepreneur" element={<EntrepreneurDashboard />} />
-        <Route path="/marketplace" element={<Marketplace />} />
-        <Route path="/contact-us" element={<Contact />} />
-        <Route path="/about-us" element={<About />} />
-        <Route path="/product-upload" element={<ProductUpload />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="*" element={<div>Page Not Found</div>} />
-      </Routes>
-    </Router>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/sign-in" element={<AuthInterface />} />
+          <Route path="/entrepreneur" element={<EntrepreneurDashboard />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/contact-us" element={<Contact />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/product-upload" element={<ProductUpload />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="*" element={<div>Page Not Found</div>} />
+        </Routes>
+    </BrowserRouter>
   );
 };
 
