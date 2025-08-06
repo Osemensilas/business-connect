@@ -51,7 +51,7 @@ const Header = () => {
         }
 
         getSession()
-    },[userPresent]);
+    },[userPresent, user]);
 
     const logoutClicked = async () => {
         console.log("Logout");
