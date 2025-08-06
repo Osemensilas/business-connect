@@ -21,9 +21,36 @@ const Header = () => {
     }
 
     useEffect(() => {
-        if (userPresent){
-            setUserPresent(true);
+        async function getSession() {
+        
+            try{
+                let url = "https://business.osemen.com.ng/user_session.php";
+
+                const response = await axios.get(url, {
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },withCredentials: true
+                })
+
+                console.log(response.data);
+            
+                if (response.data.session !== ''){
+                    setUserPresent(true);
+
+                    if (response.data.role === 'admin'){
+                        setUser('admin');
+                    }else{
+                        setUser('user');
+                    }
+                }else{
+                    setUserPresent(false);
+                }
+            }catch(err){
+                console.log("Error retrieving session: ", err);
+            }
         }
+
+        getSession()
     },[userPresent]);
 
     const logoutClicked = async () => {
@@ -47,36 +74,7 @@ const Header = () => {
         }
     }
 
-    async function getSession() {
-        
-        try{
-            let url = "https://business.osemen.com.ng/user_session.php";
-
-            const response = await axios.get(url, {
-                headers: {
-                    "Content-Type" : "application/json",
-                },withCredentials: true
-            })
-
-            console.log(response.data);
-        
-            if (response.data.session !== ''){
-                setUserPresent(true);
-
-                if (response.data.role === 'admin'){
-                    setUser('admin');
-                }else{
-                    setUser('user');
-                }
-            }else{
-                setUserPresent(false);
-            }
-        }catch(err){
-            console.log("Error retrieving session: ", err);
-        }
-    }
-
-    getSession()
+    
     return ( 
         <>
         <nav className="bg-white shadow-lg">
