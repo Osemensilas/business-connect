@@ -27,6 +27,7 @@ const Header = () => {
     },[userPresent]);
 
     const logoutClicked = async () => {
+        console.log("Logout");
         try{
             let url = "https://business.osemen.com.ng/logout.php";
 
@@ -35,8 +36,6 @@ const Header = () => {
                     "Content-Type" : "application/json",
                 },withCredentials: true
             })
-
-            console.log(response.data);
 
             if (response.data.message === 'logged out'){
                 setUserPresent(false);
@@ -49,6 +48,7 @@ const Header = () => {
     }
 
     async function getSession() {
+        
         try{
             let url = "https://business.osemen.com.ng/user_session.php";
 
