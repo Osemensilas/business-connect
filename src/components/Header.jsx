@@ -57,8 +57,6 @@ const Header = () => {
                     "Content-Type" : "application/json",
                 },withCredentials: true
             })
-
-            console.log(response.data);
         
             if (response.data.session !== ''){
                 setUserPresent(true);
@@ -101,12 +99,12 @@ const Header = () => {
                     ${user === 'admin' ? "" : "hidden"}
                     `}>Admin Panel</Link>
                 <button onClick={signinClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "hidden" : ""}
+                    ${userPresent ? "" : "hidden"}
                     `}>
                     Sign In
                 </button>
                 <button onClick={logoutClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "" : "hidden"}
+                    ${userPresent ? "hidden" : ""}
                     `}>
                     Logout
                 </button>
