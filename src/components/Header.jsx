@@ -31,10 +31,8 @@ const Header = () => {
                         "Content-Type" : "application/json",
                     },withCredentials: true
                 })
-
-                console.log(response.data);
             
-                if (response.data.session !== ''){
+                if (response.data?.session){
                     setUserPresent(true);
 
                     if (response.data.role === 'admin'){
@@ -54,7 +52,6 @@ const Header = () => {
     },[]);
 
     const logoutClicked = async () => {
-        console.log("Logout");
         try{
             let url = "https://business.osemen.com.ng/logout.php";
 
@@ -99,16 +96,17 @@ const Header = () => {
                 <Link to={"/admin-panel"} className={`block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors
                     ${user === 'admin' ? "" : "hidden"}
                     `}>Admin Panel</Link>
-                <button onClick={signinClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "hidden" : ""}
-                    `}>
+                {!userPresent && (
+                <button onClick={signinClicked} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
                     Sign In
                 </button>
-                <button onClick={logoutClicked} className={`bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "" : "hidden"}
-                    `}>
+                )}
+
+                {userPresent && (
+                <button onClick={logoutClicked} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
                     Logout
                 </button>
+                )}
                 </div>
 
                 {/* Mobile menu button */}
@@ -139,16 +137,23 @@ const Header = () => {
                 <Link to={"/admin-panel"} className={`block px-3 py-2 text-gray-600 hover:text-blue-600 transition-colors
                     ${user === 'admin' ? "" : "hidden"}
                     `}>Admin Panel</Link>
-                <button onClick={signinClicked} className={`w-full mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "hidden" : ""}
-                `}>
+                {!userPresent && (
+                <button
+                    onClick={signinClicked}
+                    className="w-full mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                >
                     Sign In
                 </button>
-                <button onClick={logoutClicked} className={`w-full mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors
-                    ${userPresent ? "" : "hidden"}
-                `}>
+                )}
+
+                {userPresent && (
+                <button
+                    onClick={logoutClicked}
+                    className="w-full mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                >
                     Logout
                 </button>
+                )}
                 </div>
             </div>
             )}
