@@ -9,45 +9,34 @@ import axios from 'axios';
 const Homepage = () => {
 
   const [userPresent, setUserPresent] = useState(false);
-  const [user, setUser] = useState('user');
-  const [innerText, setInnerText] = useState('Get Started');
-  const [innerLink, setInnerLink] = useState('/sign-in');
-
+  
   useEffect(() => {
     async function getSession() {
-        
-        try{
-            let url = "https://business.osemen.com.ng/user_session.php";
+      try {
+        let url = "https://business.osemen.com.ng/user_session.php";
+        const response = await axios.get(url, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true
+        });
 
-            const response = await axios.get(url, {
-                headers: {
-                    "Content-Type" : "application/json",
-                },withCredentials: true
-            })
+        console.log(response.data);
 
-            console.log(response.data);
-        
-            if (response.data.session !== ''){
-                setUserPresent(true);
-                setInnerLink("/product-upload");
-                setInnerText("Upload Product");
-                if (response.data.role === 'admin'){
-                    setUser('admin');
-                }else{
-                    setUser('user');
-                }
-            }else{
-                setUserPresent(false);
-                setInnerLink("/sign-in");
-                setInnerText("Get Started");
-            }
-        }catch(err){
-            console.log("Error retrieving session: ", err);
+        if (response.data?.session) {
+          setUserPresent(true);
+        } else {
+          setUserPresent(false);
         }
+      } catch (err) {
+        console.log("Error retrieving session: ", err);
+      }
     }
 
-    getSession()
-  },[userPresent, user, innerLink, innerText])
+    getSession();
+  }, []);
+
+  const buttonText = userPresent ? "Upload Product" : "Get Started";
+  const buttonLink = userPresent ? "/product-upload" : "/sign-in";
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -67,15 +56,28 @@ const Homepage = () => {
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
               <Link
-                to={innerLink}
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
+                to={buttonLink}
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent 
+                text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
               >
-                {innerText}
+                {buttonText}
                 <ChevronRight className="ml-2" size={20} />
               </Link>
             </div>
           </div>
         </div>
+
+        {userPresent && (
+          <div className="bg-green-100 p-4 rounded-md mt-4 text-green-800">
+            Welcome back! You can now upload products.
+          </div>
+        )}
+
+        {!userPresent && (
+          <p className="mt-4 text-gray-500">
+            Please sign in to start uploading products.
+          </p>
+        )}
 
         {/* Feature Cards */}
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
